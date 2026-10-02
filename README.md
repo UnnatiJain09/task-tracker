@@ -6,11 +6,12 @@ It helps users create, organize, track, and manage daily tasks with features suc
 
 ## 🚀 Live Demo
 
-Add your deployed project link here after deployment.
+https://unnatijain09.github.io/task-tracker/
 
 ## 📸 Preview
 
-![TaskFlow Dashboard](screenshot.png)
+<img width="953" height="478" alt="Screenshot 2026-10-02 201230" src="https://github.com/user-attachments/assets/44b70128-5a9c-4562-bc7e-129e850fcdda" />
+
 
 ## ✨ Features
 
