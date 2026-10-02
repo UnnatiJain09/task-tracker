@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="TaskFlow is a modern personal task management dashboard for organizing tasks, priorities and productivity."
+    >
+
+    <title>TaskFlow | Personal Task Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- ================================
+             SIDEBAR
+        ================================= -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-top">
+
+                <a
+                    href="#"
+                    class="logo"
+                    aria-label="TaskFlow home"
+                >
+                    <span class="logo-icon">✓</span>
+
+                    <span>
+                        Task<span>Flow</span>
+                    </span>
+                </a>
+
+                <button
+                    type="button"
+                    id="sidebar-close"
+                    class="sidebar-close"
+                    aria-label="Close sidebar"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <nav
+                class="sidebar-nav"
+                aria-label="Main navigation"
+            >
+
+                <p class="nav-label">
+                    WORKSPACE
+                </p>
+
+                <button
+                    type="button"
+                    class="nav-item active"
+                    data-view="all"
+                >
+                    <span class="nav-icon">▣</span>
+                    <span>All Tasks</span>
+                    <span
+                        id="all-count"
+                        class="nav-count"
+                    >
+                        0
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    data-view="today"
+                >
+                    <span class="nav-icon">◷</span>
+                    <span>Today</span>
+                    <span
+                        id="today-count"
+                        class="nav-count"
+                    >
+                        0
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    data-view="upcoming"
+                >
+                    <span class="nav-icon">□</span>
+                    <span>Upcoming</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    data-view="completed"
+                >
+                    <span class="nav-icon">✓</span>
+                    <span>Completed</span>
+                    <span
+                        id="completed-count"
+                        class="nav-count"
+                    >
+                        0
+                    </span>
+                </button>
+
+                <p class="nav-label categories-label">
+                    CATEGORIES
+                </p>
+
+                <button
+                    type="button"
+                    class="category-item"
+                    data-category="Work"
+                >
+                    <span class="category-dot work"></span>
+                    <span>Work</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="category-item"
+                    data-category="Personal"
+                >
+                    <span class="category-dot personal"></span>
+                    <span>Personal</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="category-item"
+                    data-category="Study"
+                >
+                    <span class="category-dot study"></span>
+                    <span>Study</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="category-item"
+                    data-category="Other"
+                >
+                    <span class="category-dot other"></span>
+                    <span>Other</span>
+                </button>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="productivity-card">
+
+                    <div class="productivity-header">
+
+                        <span>
+                            Today's progress
+                        </span>
+
+                        <strong id="progress-percent">
+                            0%
+                        </strong>
+
+                    </div>
+
+                    <div
+                        class="progress-track"
+                        aria-hidden="true"
+                    >
+                        <span
+                            id="progress-bar"
+                            class="progress-bar"
+                        ></span>
+                    </div>
+
+                    <p id="progress-text">
+                        No completed tasks yet
+                    </p>
+
+                </div>
+
+                <p class="sidebar-footer">
+                    Stay focused. Keep moving.
+                </p>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================================
+             MAIN CONTENT
+        ================================= -->
+
+        <main class="main-content">
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+                <button
+                    type="button"
+                    id="menu-toggle"
+                    class="menu-toggle"
+                    aria-label="Open sidebar"
+                >
+                    ☰
+                </button>
+
+                <div class="page-heading">
+
+                    <p id="current-greeting">
+                        GOOD MORNING
+                    </p>
+
+                    <h1 id="page-title">
+                        All Tasks
+                    </h1>
+
+                </div>
+
+                <div class="topbar-actions">
+
+                    <button
+                        type="button"
+                        id="theme-toggle"
+                        class="icon-button"
+                        aria-label="Switch to dark mode"
+                        title="Switch theme"
+                    >
+                        ☾
+                    </button>
+
+                    <button
+                        type="button"
+                        id="add-task-top"
+                        class="add-task-button"
+                    >
+                        <span>+</span>
+                        Add Task
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- ================================
+                 DASHBOARD STATS
+            ================================= -->
+
+            <section
+                class="stats-grid"
+                aria-label="Task statistics"
+            >
+
+                <article class="stat-card">
+
+                    <div class="stat-icon total-icon">
+                        ▣
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            Total Tasks
+                        </span>
+
+                        <strong id="total-tasks">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+                <article class="stat-card">
+
+                    <div class="stat-icon pending-icon">
+                        ◷
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            Pending
+                        </span>
+
+                        <strong id="pending-tasks">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+                <article class="stat-card">
+
+                    <div class="stat-icon completed-icon">
+                        ✓
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            Completed
+                        </span>
+
+                        <strong id="completed-tasks">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+                <article class="stat-card">
+
+                    <div class="stat-icon priority-icon">
+                        !
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            High Priority
+                        </span>
+
+                        <strong id="high-priority-tasks">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- ================================
+                 TASK SECTION
+            ================================= -->
+
+            <section class="tasks-section">
+
+                <div class="section-toolbar">
+
+                    <div class="section-title">
+
+                        <p>
+                            YOUR WORKSPACE
+                        </p>
+
+                        <h2 id="task-section-title">
+                            Tasks
+                        </h2>
+
+                    </div>
+
+                    <div class="task-controls">
+
+                        <div class="search-wrapper">
+
+                            <label
+                                for="task-search"
+                                class="sr-only"
+                            >
+                                Search tasks
+                            </label>
+
+                            <span
+                                class="search-icon"
+                                aria-hidden="true"
+                            >
+                                ⌕
+                            </span>
+
+                            <input
+                                type="search"
+                                id="task-search"
+                                placeholder="Search tasks..."
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+                        <label
+                            for="priority-filter"
+                            class="sr-only"
+                        >
+                            Filter by priority
+                        </label>
+
+                        <select
+                            id="priority-filter"
+                            class="filter-select"
+                        >
+                            <option value="all">
+                                All priorities
+                            </option>
+
+                            <option value="high">
+                                High priority
+                            </option>
+
+                            <option value="medium">
+                                Medium priority
+                            </option>
+
+                            <option value="low">
+                                Low priority
+                            </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TASK LIST -->
+
+                <div
+                    id="task-list"
+                    class="task-list"
+                    aria-live="polite"
+                >
+
+                    <!-- Tasks will be created using JavaScript -->
+
+                </div>
+
+
+                <!-- EMPTY STATE -->
+
+                <div
+                    id="empty-state"
+                    class="empty-state"
+                    hidden
+                >
+
+                    <div class="empty-icon">
+                        ✓
+                    </div>
+
+                    <h3>
+                        No tasks here
+                    </h3>
+
+                    <p id="empty-message">
+                        Create your first task and start
+                        getting things done.
+                    </p>
+
+                    <button
+                        type="button"
+                        id="empty-add-task"
+                        class="empty-action"
+                    >
+                        + Create a Task
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================
+                 ADD / EDIT TASK MODAL
+            ================================= -->
+
+            <div
+                id="task-modal"
+                class="modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-title"
+                hidden
+            >
+
+                <div class="modal-overlay"></div>
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <div>
+
+                            <p class="modal-label">
+                                TASK DETAILS
+                            </p>
+
+                            <h2 id="modal-title">
+                                Create a new task
+                            </h2>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            id="modal-close"
+                            class="modal-close"
+                            aria-label="Close task form"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <form
+                        id="task-form"
+                        novalidate
+                    >
+
+                        <input
+                            type="hidden"
+                            id="editing-task-id"
+                        >
+
+
+                        <div class="form-field">
+
+                            <label for="task-title">
+                                Task Title
+                                <span aria-hidden="true">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="task-title"
+                                name="taskTitle"
+                                placeholder="What needs to be done?"
+                                maxlength="100"
+                                required
+                            >
+
+                            <p
+                                id="task-title-error"
+                                class="form-error"
+                                role="alert"
+                            ></p>
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label for="task-description">
+                                Description
+                            </label>
+
+                            <textarea
+                                id="task-description"
+                                name="taskDescription"
+                                rows="3"
+                                maxlength="300"
+                                placeholder="Add some details..."
+                            ></textarea>
+
+                            <div
+                                id="description-count"
+                                class="character-count"
+                            >
+                                0 / 300
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-row">
+
+                            <div class="form-field">
+
+                                <label for="task-category">
+                                    Category
+                                    <span aria-hidden="true">*</span>
+                                </label>
+
+                                <select
+                                    id="task-category"
+                                    name="taskCategory"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select category
+                                    </option>
+
+                                    <option value="Work">
+                                        Work
+                                    </option>
+
+                                    <option value="Personal">
+                                        Personal
+                                    </option>
+
+                                    <option value="Study">
+                                        Study
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-field">
+
+                                <label for="task-priority">
+                                    Priority
+                                    <span aria-hidden="true">*</span>
+                                </label>
+
+                                <select
+                                    id="task-priority"
+                                    name="taskPriority"
+                                    required
+                                >
+
+                                    <option value="low">
+                                        Low
+                                    </option>
+
+                                    <option value="medium" selected>
+                                        Medium
+                                    </option>
+
+                                    <option value="high">
+                                        High
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-row">
+
+                            <div class="form-field">
+
+                                <label for="task-due-date">
+                                    Due Date
+                                    <span aria-hidden="true">*</span>
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="task-due-date"
+                                    name="taskDueDate"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-field">
+
+                                <label for="task-time">
+                                    Due Time
+                                </label>
+
+                                <input
+                                    type="time"
+                                    id="task-time"
+                                    name="taskTime"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="modal-actions">
+
+                            <button
+                                type="button"
+                                id="cancel-task"
+                                class="cancel-button"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="submit"
+                                id="save-task"
+                                class="save-button"
+                            >
+                                Create Task
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- ================================
+         TOAST NOTIFICATION
+    ================================= -->
+
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+        hidden
+    >
+
+        <span id="toast-icon">
+            ✓
+        </span>
+
+        <p id="toast-message">
+            Task updated successfully.
+        </p>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
