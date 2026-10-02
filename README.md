@@ -8,7 +8,11 @@ It helps users create, organize, track, and manage daily tasks with features suc
 
 Add your deployed project link here after deployment.
 
-## 📌 Features
+## 📸 Preview
+
+![TaskFlow Dashboard](screenshot.png)
+
+## ✨ Features
 
 * Create new tasks
 * Edit existing tasks
@@ -43,7 +47,7 @@ Add your deployed project link here after deployment.
 * Toast notifications
 * Empty states
 * Keyboard-friendly interactions
-* Accessible focus states
+* Accessibility-focused interactions
 * Mobile sidebar navigation
 * Smooth UI animations
 
@@ -86,7 +90,7 @@ No backend or installation is required.
 
 TaskFlow uses the browser's **LocalStorage API** to store tasks.
 
-This means tasks remain available even after refreshing or reopening the browser on the same device and browser.
+Tasks remain available after refreshing or reopening the browser on the same device and browser.
 
 ## 📱 Responsive Design
 
